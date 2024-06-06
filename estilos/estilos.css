@@ -1,0 +1,23 @@
+body {
+    background-image: url(../img/fondo3.jpg);
+    padding-top: 50px;
+    /* Ajuste para Navbar fijo */
+
+}
+
+.container workspace {
+    background-image: url(../img/fondo3.jpg);
+}
+
+#TITULO1 {
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Impact', sans-serif
+}
+
+#TITULO2 {
+    text-align: left;
+    color: #ffffff;
+    font-family: 'Lucida Sans', sans-serif;
+    font-size: 40px;
+}

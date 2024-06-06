@@ -1,0 +1,213 @@
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Agregar Equipo Nuevo
+</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Equipo</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="container">
+    <h2>AGREGAR EQUIPOS FUSAFOR</h2>
+  
+      <div class="form-group">
+        <label for="Nombre">Nombre:</label>
+        <input type="text" id="Nombre" name="Nombre">
+      </div>
+      <div class="form-group">
+        <label for="Ciudad">Ciudad:</label>
+        <input type="text" id="Ciudad" name="Ciudad" >
+      </div>
+      <div class="form-group">
+        <label for="Tecnico">Tecnico:</label>
+        <input type="text" id="Tecnico" name="Tecnico" >
+      </div>
+  </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick= "validarFormulario();">Grabar</button>
+      </div>
+    </div>
+  </div>
+</div>
+function eliminarEquipo(ID_equipo) {
+    var confirmacion = confirm("¿Estás seguro de que quieres eliminar este equipo?");
+    if (confirmacion) {
+        $.ajax({
+            type: 'POST',
+            url: 'equipos/eliminarequipo.php',
+            data: {ID_equipo: ID_equipo},
+            success: function(response) {
+                // Puedes manejar la respuesta del servidor aquí si es necesario
+                // Por ejemplo, recargar la página o actualizar la tabla
+            }
+        });
+    }
+}
+
+background-image: url("img/fondo3.jpg")
+
+
+<link rel="stylesheet" href="styles.css">
+
+inicio sesion
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Iniciar Sesion</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url("img/fondo3.jpg");
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+           
+        }
+
+        .login {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            background-image: url("img/fondo2.jpg");
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .correcto,
+        .error {
+            margin-bottom: 16px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .correcto {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        .error {
+            background-color: #f44336;
+            color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#loginForm").submit(function (event) {
+                event.preventDefault();
+
+                var nombre_usuario = $("#nombre_usuario").val();
+                var contrasena = $("#contrasena").val();
+                var email = $("#email").val();
+
+                var data = {
+                    nombre_usuario: nombre_usuario,
+                    contrasena: contrasena,
+                    email: email
+                };
+
+                // Realizar la solicitud AJAX para verificar la autenticación
+                $.ajax({
+                    type: "POST",
+                    url: "verificar_login.php",
+                    data: data,
+                    success: function (response) {
+                        console.log(response)
+                        if (response === "Inicio Exitoso") {
+                            $("#mensajeSuccess").html("Inicio de Sesion Exitoso");
+                            $("#mensajeSuccess").show(); // Mostrar mensaje de éxito
+                            $("#mensajeError").hide();  // Ocultar mensaje de error
+                            window.location.href = "home.html";
+                        } else {
+                            $("#mensajeError").html("Usuario , contrasena o correo incorrectos.");
+                            $("#mensajeError").show(); // Mostrar mensaje de error
+                            $("#mensajeSuccess").hide();  // Ocultar mensaje de exito
+                        }
+                    }
+                });
+            });
+        });
+
+    </script>
+</head>
+<main class="servicio">
+    <div class="servicio-contenido container"> </div>
+</main>
+
+<body>
+    <div class="main">
+        <div class="login">
+            <div class='correcto' id="mensajeSuccess"></div>
+            <div class='error' id="mensajeError"></div>
+            <form id="loginForm">
+                <h1 style="text-align: center; color: #fff;">Iniciar Sesion FU.SA.F<img src="img/pelota.png" alt="" img
+                    width="30">R</h1>
+                <input type="text" name="nombre_usuario" id="nombre_usuario" placeholder="Usuario" required>
+                <input type="password" name="contrasena" id="contrasena" placeholder="Contrasena" required>
+                <input type="email" name="email" id="email" placeholder="Email" required>
+                <button type="submit">Iniciar Sesion</button>
+
+                <head>
+
+            </form>
+        </div>
+    </div>
+    <footer>
+        <h1>Grupo 14</h1>
+        <p>
+        <h2>Integrantes</h2>
+        </p>
+        <ul>
+            <li>Del Valle Mariel </li>
+            <li>Escobedo Cristian</li>
+            <li>Franco Leandro</li>
+            <li>Galeano Fausto Emmanuel</li>
+            <li>Medina Aldana</li>
+        </ul>
+    </footer>
+</body>
+
+</html>

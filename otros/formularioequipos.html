@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>AGREGAR EQUIPOS FUSAFOR</title>
+  <style>
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 400px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  </style>
+  <script>
+    function validarFormulario() {
+
+      var Nombre = document.getElementById("Nombre").value;
+      var Ciudad = document.getElementById("Ciudad").value;
+      var Tecnico = document.getElementById("Tecnico").value;
+
+      if (Nombre.trim() === "") {
+        alert("Por favor, ingrese Nombre del Equipo");
+        return false;
+      }
+
+      if (Ciudad.trim() === "") {
+        alert("Por favor, ingrese su nombre de la Cuidad.");
+        return false;
+      }
+
+      if (Tecnico.trim() === "") {
+        alert("Por favor, ingrese Nombre del Tecnico");
+        return false;
+      }
+
+      
+
+      return true; // El formulario se enviará si todos los campos están completos.
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>AGREGAR EQUIPOS FUSAFOR</h2>
+    <form action="insertarequipos.php" method="post" onsubmit="return validarFormulario();">
+      <div class="form-group">
+        <label for="Nombre">Nombre:</label>
+        <input type="text" id="Nombre" name="Nombre">
+      </div>
+      <div class="form-group">
+        <label for="Ciudad">Ciudad:</label>
+        <input type="text" id="Ciudad" name="Ciudad" >
+      </div>
+      <div class="form-group">
+        <label for="Tecnico">Tecnico:</label>
+        <input type="text" id="Tecnico" name="Tecnico" >
+      </div>
+      <button type="submit">Grabar</button>
+    </form>
+  </div>
+ 
+</body>
+</html>

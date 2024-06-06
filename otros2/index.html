@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Iniciar Sesion</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Función para abrir el modal
+        function abrirModal() {
+            document.getElementById('registroModal').style.display = 'block';
+        }
+
+        // Función para cerrar el modal
+        function cerrarModal() {
+            document.getElementById('registroModal').style.display = 'none';
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("img/fondo3.jpg");
+            margin: 0;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login {
+            background-image: url("img/fondo2.jpg");
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        .login label {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .login input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .login button {
+            background-color: #4caf50;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login button:hover {
+            background-color: #45a049;
+        }
+
+        .login p {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .login a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .login a:hover {
+            text-decoration: underline;
+        }
+
+        .correcto {
+            color: #4caf50;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        .error {
+            color: #ff0000;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        footer {
+            text-align: left;
+            margin-top: 30px;
+            padding: 0px;
+            background-image: url("img/fondo2.jpg");
+            ;
+            color: #ffffff;
+            position: fixed;
+            bottom: 0;
+            width: 18%;
+            height: 30%;
+        }
+
+        /* Estilos para el modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        /* Estilo para los campos del formulario dentro del modal */
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Estilo para el botón de enviar en el formulario del modal */
+        .modal-content button {
+            background-color: #4caf50;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .modal-content button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#loginForm").submit(function (event) {
+                event.preventDefault();
+
+                var nombre_usuario = $("#nombre_usuario").val();
+                var contrasena = $("#contrasena").val();
+                var email = $("#email").val();
+
+                var data = {
+                    nombre_usuario: nombre_usuario,
+                    contrasena: contrasena,
+                    email: email
+                };
+
+                // Realizar la solicitud AJAX para verificar la autenticación
+                $.ajax({
+                    type: "POST",
+                    url: "verificar_login.php",
+                    data: data,
+                    success: function (response) {
+                        console.log(response)
+                        if (response === "Inicio Exitoso") {
+                            $("#mensajeSuccess").html("Inicio de Sesion Exitoso");
+                            $("#mensajeSuccess").show(); // Mostrar mensaje de éxito
+                            $("#mensajeError").hide();  // Ocultar mensaje de error
+                            window.location.href = "home.html";
+                        } else {
+                            $("#mensajeError").html("Usuario o contrasena incorrectos.");
+                            $("#mensajeError").show(); // Mostrar mensaje de error
+                            $("#mensajeSuccess").hide();  // Ocultar mensaje de exito
+                        }
+                    }
+                });
+            });
+
+            // Agregar un evento para redirigir a la página de registro
+            $("#registroLink").click(function () {
+                window.location.href = "registro.html";
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="login">
+            <div class='correcto' id="mensajeSuccess"></div>
+            <div class='error' id="mensajeError"></div>
+            <form id="loginForm">
+                <h1 style="text-align: center; color: #ffffff;">Iniciar Sesion FU.SA.F<img src="img/pelota.png" alt=""
+                        img width="30">R</h1>
+                <input type="text" name="nombre_usuario" id="nombre_usuario" placeholder="Usuario" required>
+                <input type="password" name="contrasena" id="contrasena" placeholder="Contrasena" required>
+                <input type="email" name="email" id="email" placeholder="Email" required>
+                <button type="submit">Iniciar Sesion</button>
+            </form>
+            <p style="text-align: center; color:#ffffff;">No tienes cuenta? <a href="#" onclick="abrirModal()">Crear
+                    cuenta</a></p>
+
+        </div>
+        <div id="registroModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModal()">&times;</span>
+                <h2>Registro</h2>
+                <form id="editarEquipoForm">
+                    <div class="mb-3">
+                        <label for="nombre_usuario" class="form-label">Usuario:</label>
+                        <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contrasena" class="form-label">contrasena:</label>
+                        <input type="texto" class="form-control" id="contrasena" name="contrasena" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <!-- Agrega el botón de guardar al formulario del modal -->
+                    <button type="button" onclick="validarFormulario()">Grabar</button>
+
+                </form>
+            </div>
+        </div>
+        <script>
+            function validarFormulario() {
+
+                var nombre_usuario = document.getElementById("nombre_usuario").value;
+                var contrasena = document.getElementById("contrasena").value;
+                var email = document.getElementById("email").value;
+                if (nombre_usuario.trim() === "") {
+                    alert("Por favor, ingrese usuario");
+                    return false;
+                } else if (contrasena.trim() === "") {
+                    alert("Por favor, ingrese su contraseña");
+                    return false;
+                } else if (email.trim() === "") {
+                    alert("Por favor, ingrese email");
+                    return false;
+                }
+                else {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'insertarusuario.php',
+                        data: {
+                            nombre_usuario: nombre_usuario,
+                            contrasena: contrasena,
+                            email: email
+                        },
+
+                    });
+                    document.getElementById('mensajeExito').classList.remove('d-none');
+                }
+            }
+        </script>
+    </div>
+    <footer>
+        <h1>Grupo 14</h1>
+        <p>
+        <h2>Integrantes</h2>
+        </p>
+        <ul>
+            <li>Del Valle Mariel </li>
+            <li>Escobedo Cristian</li>
+            <li>Franco Leandro</li>
+            <li>Galeano Fausto Emmanuel</li>
+            <li>Medina Aldana</li>
+        </ul>
+
+    </footer>
+</body>
+
+</html>
